@@ -186,10 +186,12 @@ class ElectronPreferences extends EventEmitter2 {
 
         this.prefsWindow = new BrowserWindow(browserWindowOpts);
 
-        if (this.options.menuBar) {
-            this.prefsWindow.setMenu(this.options.menuBar);
-        } else {
-            this.prefsWindow.removeMenu();
+        if (process.platform !== 'darwin') {
+            if (this.options.menuBar) {
+                this.prefsWindow.setMenu(this.options.menuBar);
+            } else {
+                this.prefsWindow.removeMenu();
+            }
         }
 
         this.prefsWindow.loadURL(url.format({
